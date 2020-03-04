@@ -3,7 +3,7 @@
     <ul>
         <li *ngFor="let movie of movies; odd as isOdd" [ngClass]="{'rouge':isOdd}">
             <!-- {{movie.title | voyelles}} -->
-            <app-movie [routerLink]="['/list/'+ movie.id ]" [myMovie]="movie" (favorite)="onFavorite($event, movie.id)">
+            <app-movie [routerLink]="['/list', movie.id ]" [myMovie]="movie" (favorite)="onFavorite($event, movie.id)">
             </app-movie>
         </li>
     </ul>

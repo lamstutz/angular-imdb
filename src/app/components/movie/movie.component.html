@@ -1,9 +1,9 @@
 <div class="card" appColor="#00F">
     <p>movie works! {{movie?.title}}</p>
-    <button (click)="onFavoriteButtonClick()">
+    <button (click)="onFavoriteButtonClick(); $event.stopPropagation()">
         favorite
     </button>
-    <button (click)="onNotFavoriteButtonClick()">
+    <button (click)="onNotFavoriteButtonClick(); $event.stopPropagation()">
         NOT favorite
     </button>
 </div>

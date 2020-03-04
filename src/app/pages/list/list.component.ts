@@ -1,3 +1,4 @@
+import { MovieService } from './../../services/movie/movie.service';
 import { Movie } from './../../models/movie.class';
 import { Component } from '@angular/core';
 
@@ -12,17 +13,15 @@ export class ListComponent {
     test1 = 'plop';
     movies: Movie[] = [];
 
-    constructor() {
+    constructor(
+        private movieService: MovieService
+    ) {
+        this.movieService.getAll().then((movies) => {
+            this.movies = movies;
+        }).catch((err) => {
+            console.error(err);
+        });
         // console.log('0 constructor');
-        setInterval(() => {
-            this.test++;
-            this.movies.push(
-                new Movie(
-                    'tt000000' + this.test.toString(),
-                    `movie ${this.test}!`
-                )
-            )
-        }, 2000);
     }
 
     onFavorite(isFavorite, movieId) {

@@ -8,18 +8,19 @@ import { VoyellesPipe } from './pipes/custom.pipe';
 import { MovieComponent } from './components/movie/movie.component';
 import { ColorDirective } from './directives/color.directive';
 import { MovieDetailComponent } from './pages/list/movie-detail/movie-detail.component';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     VoyellesPipe,
-    MovieComponent,
     ColorDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
