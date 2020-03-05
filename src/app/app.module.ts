@@ -9,6 +9,7 @@ import { MovieComponent } from './components/movie/movie.component';
 import { ColorDirective } from './directives/color.directive';
 import { MovieDetailComponent } from './pages/list/movie-detail/movie-detail.component';
 import { ComponentsModule } from './components/components.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ComponentsModule } from './components/components.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { MovieService } from './../../services/movie/movie.service';
 import { Movie } from './../../models/movie.class';
 import { Component } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
     selector: 'app-list',
@@ -11,17 +12,24 @@ export class ListComponent {
 
     test = 1;
     test1 = 'plop';
-    movies: Movie[] = [];
+    // movies: Movie[] = []
+    // moviesSub: Subscription;
+    movies$: Observable<Movie[]> = this.movieService.getMoviesByTitle('louis');
 
     constructor(
         private movieService: MovieService
     ) {
-        this.movieService.getAll().then((movies) => {
-            this.movies = movies;
-        }).catch((err) => {
-            console.error(err);
-        });
+        // this.movieService.getAll().then((movies) => {
+        //     this.movies = movies;
+        // }).catch((err) => {
+        //     console.error(err);
+        // });
         // console.log('0 constructor');
+        // this.moviesSub = this.movieService.getMoviesByTitle('louis').subscribe(movies => {
+        //     this.movies = movies;
+        // },
+        //     err => console.error(err)
+        // )
     }
 
     onFavorite(isFavorite, movieId) {
@@ -56,6 +64,9 @@ export class ListComponent {
     }
     ngOnDestroy() {
         // console.log('8 ngOnDestroy')
+        // if (this.moviesSub) {
+        //     this.moviesSub.unsubscribe();
+        // }
     }
 
 

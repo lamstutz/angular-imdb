@@ -1,1 +1,4 @@
-<p>{{movie | json}}</p>
+<div *ngIf="movie$ | async as movie">
+    <p>title = {{movie.title }}</p>
+    <p>id = {{movie.id }}</p>
+</div>

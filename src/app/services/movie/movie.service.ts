@@ -1,48 +1,59 @@
+import { Observable } from 'rxjs';
 import { Movie } from './../../models/movie.class';
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  private movies = [
-    new Movie(
-      'tt0000001',
-      'spider-man'
-    ),
-    new Movie(
-      'tt0000002',
-      'spider-man 2'
-    ),
-    new Movie(
-      'tt0000003',
-      'spider-man 3'
-    ),
-    new Movie(
-      'tt0000004',
-      'spider-man 1 remake'
-    ),
-    new Movie(
-      'tt0000005',
-      'spider-man 1 reremake'
-    ),
-  ];
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  getById(id: string): Promise<Movie> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.movies.find(movie => movie.id === id));
-      }, 3000);
-    })
+  getById(id: string): Observable<Movie> {
+
+    return this.http.get('http://www.omdbapi.com', {
+      params: {
+        apikey: '172d5c07',
+        i: id
+      }
+    }).pipe(map((movieDb: any) => {
+      return new Movie(movieDb.imdbID, movieDb.Title)
+    }))
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve(this.movies.find(movie => movie.id === id));
+    //   }, 3000);
+    // })
   }
 
-  getAll(): Promise<Movie[]> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.movies);
-      }, 3000);
-    })
+
+  getMoviesByTitle(title: string): Observable<Movie[]> {
+    return this.http.get('http://www.omdbapi.com', {
+      params: {
+        apikey: '172d5c07',
+        s: title
+      }
+    }).pipe(
+      map((searchResult: any) => {
+        if (searchResult.Search) {
+          return searchResult.Search.map(movieResult => {
+            return new Movie(movieResult.imdbID, movieResult.Title)
+          })
+        } else {
+          return [];
+        }
+      })
+    )
   }
+
+  // getAll(): Promise<Movie[]> {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve(this.movies);
+  //     }, 3000);
+  //   })
+  // }
 }

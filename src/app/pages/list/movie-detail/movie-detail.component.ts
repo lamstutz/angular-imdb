@@ -1,5 +1,6 @@
+import { Subscription, Observable } from 'rxjs';
 import { MovieService } from './../../../services/movie/movie.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Movie } from 'src/app/models/movie.class';
 
@@ -8,22 +9,27 @@ import { Movie } from 'src/app/models/movie.class';
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss']
 })
-export class MovieDetailComponent implements OnInit {
+export class MovieDetailComponent implements OnInit, OnDestroy {
 
-  movie: Movie;
+  movie$: Observable<Movie>;
+  //movieSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieService
   ) {
-    this.movieService.getById(
+    this.movie$ = this.movieService.getById(
       this.route.snapshot.paramMap.get('movieId')
-    ).then((movie) => {
-      this.movie = movie;
-    }).catch(err => console.error(err));
+    )
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    // if (this.movieSub) {
+    //   this.movieSub.unsubscribe();
+    // }
   }
 
 }
