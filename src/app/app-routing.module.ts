@@ -1,3 +1,4 @@
+import { CustomMovieComponent } from './pages/custom-movie/custom-movie.component';
 import { MovieDetailComponent } from './pages/list/movie-detail/movie-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,6 +10,10 @@ const routes: Routes = [
   {
     path: 'list',
     component: ListComponent
+  },
+  {
+    path: 'custom',
+    component: CustomMovieComponent
   },
   {
     path: 'list/:movieId',

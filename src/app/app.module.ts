@@ -10,19 +10,22 @@ import { ColorDirective } from './directives/color.directive';
 import { MovieDetailComponent } from './pages/list/movie-detail/movie-detail.component';
 import { ComponentsModule } from './components/components.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CustomMovieComponent } from './pages/custom-movie/custom-movie.component';
+import { FormsModule } from '@angular/forms'
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     VoyellesPipe,
-    ColorDirective
+    ColorDirective,
+    CustomMovieComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
