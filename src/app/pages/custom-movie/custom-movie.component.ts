@@ -8,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class CustomMovieComponent implements OnInit {
 
 
+
   constructor() { }
 
   log() {
-    console.log(this.title);
   }
 
   send(movie) {

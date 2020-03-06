@@ -1,10 +1,24 @@
 <p>custom-movie works!</p>
-<form #myForm="ngForm" (submit)="send(myForm.value)">
+<form #myFormRef="ngForm" (submit)="myFormRef.invalid?showErrors(myFormRef, commentInputRef):send(myFormRef)">
+
     <label for="titleInput">title: </label>
-    <input id="titleInput" name="title" ngModel (change)="log()" />
+    <input id="titleInput" name="title" ngModel />
+
     <label for="commentInput">comment: </label>
-    <input id="commentInput" name="comment" ngModel />
-    <label for="noteInput">note: </label>
-    <input type="number" id="note" name="note" ngModel />
+    <input #commentInputRef="ngModel" id="commentInput" name="comment" ngModel required [minlength]="10" />
+    <div [hidden]="commentInputRef.valid">
+        <p *ngIf="commentInputRef.errors?.required !== undefined">
+            required
+        </p>
+        <p *ngIf="commentInputRef.errors?.minlength !== undefined">
+            minlength
+        </p>
+    </div>
+
+    <div *ngIf="commentInputRef.valid">
+        <label for="noteInputID">note: </label>
+        <input type="number" id="noteInputID" name="note" ngModel required />
+    </div>
+
     <button>send</button>
 </form>
